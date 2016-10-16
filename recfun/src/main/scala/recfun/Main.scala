@@ -43,6 +43,6 @@ object Main {
         else if (coinsRes.isEmpty) 0
         else checkChanges(money - coinsRes.head, coinsRes) + checkChanges(money, coinsRes.tail)
       }
-      checkChanges(money, coins)
+      checkChanges(money, coins.filter(_ <= money))
     }
   }
