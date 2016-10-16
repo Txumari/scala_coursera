@@ -37,13 +37,12 @@ object Main {
    * Exercise 3
    */
     def countChange(money: Int, coins: List[Int]): Int = {
-      def checkChanges(currentAmount: Int, coinsRes: List[Int], numChanges: Int): Int = {
-        if (money == 0) numChanges
-        else if (coinsRes.isEmpty) numChanges
-        else if (currentAmount < money) checkChanges(currentAmount + coinsRes.head, coinsRes, numChanges)
-        else if (currentAmount > money) checkChanges(currentAmount - coinsRes.head, coinsRes.tail, numChanges)
-        else checkChanges(0, coinsRes.tail, numChanges + 1)
+      def checkChanges(money: Int, coinsRes: List[Int]): Int = {
+        if (money == 0) 1
+        else if (money < 0) 0
+        else if (coinsRes.isEmpty) 0
+        else checkChanges(money - coinsRes.head, coinsRes) + checkChanges(money, coinsRes.tail)
       }
-      checkChanges(0, coins, 0)
+      checkChanges(money, coins)
     }
   }
