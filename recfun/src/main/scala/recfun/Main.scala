@@ -24,7 +24,8 @@ object Main {
    */
     def balance(chars: List[Char]): Boolean = {
       def checkString(chars: List[Char], num: Int): Boolean = {
-        if (chars.isEmpty) num == 0
+        if (num < 0) false
+        else if (chars.isEmpty) num == 0
         else if (chars.head == ')') checkString(chars.tail, num-1)
         else if (chars.head == '(') checkString(chars.tail, num+1)
         else checkString(chars.tail, num)
@@ -35,5 +36,14 @@ object Main {
   /**
    * Exercise 3
    */
-    def countChange(money: Int, coins: List[Int]): Int = ???
+    def countChange(money: Int, coins: List[Int]): Int = {
+      def checkChanges(currentAmount: Int, coinsRes: List[Int], numChanges: Int): Int = {
+        if (money == 0) numChanges
+        else if (coinsRes.isEmpty) numChanges
+        else if (currentAmount < money) checkChanges(currentAmount + coinsRes.head, coinsRes, numChanges)
+        else if (currentAmount > money) checkChanges(currentAmount - coinsRes.head, coinsRes.tail, numChanges)
+        else checkChanges(0, coinsRes.tail, numChanges + 1)
+      }
+      checkChanges(0, coins, 0)
+    }
   }
