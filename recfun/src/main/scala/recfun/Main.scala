@@ -22,7 +22,15 @@ object Main {
   /**
    * Exercise 2
    */
-    def balance(chars: List[Char]): Boolean = ???
+    def balance(chars: List[Char]): Boolean = {
+      def checkString(chars: List[Char], num: Int): Boolean = {
+        if (chars.isEmpty) num == 0
+        else if (chars.head == ')') checkString(chars.tail, num-1)
+        else if (chars.head == '(') checkString(chars.tail, num+1)
+        else checkString(chars.tail, num)
+      }
+      checkString(chars, 0)
+    }
   
   /**
    * Exercise 3
